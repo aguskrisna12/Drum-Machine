@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Drum from './Drum'
 
@@ -54,15 +54,32 @@ function App() {
     },
   ]
 
+  
+
+  const [desc, setDesc] = useState('')
+
+    const playAudio = (dataDesc, audio) => {
+        audio.play()
+        setDesc(dataDesc)
+    }
+
+    useEffect(() => {
+      document.addEventListener('keydown', detectKeyDown, true)
+    },[])
+
+    const detectKeyDown = (e) => {
+      console.log("clicked " + e.key)
+    }
   return (
     <>
       <div className='container' id='drum-machine'>
         <h1>FCC Drum Machine</h1>
         <div className='whole-drum' id='display'>
           {audioData.map((clip) => (
-            <Drum dataClip={clip}/>
+            <Drum dataClip={clip} playAudio={playAudio}/>
           ))}
         </div>
+        <div>{desc}</div>
       </div>
     </>
   )
