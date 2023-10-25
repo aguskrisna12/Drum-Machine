@@ -68,7 +68,12 @@ function App() {
     },[])
 
     const detectKeyDown = (e) => {
-      console.log("clicked " + e.key)
+      // console.log("clicked " + e.key)
+      const foundAudio = audioData.find(a => a.keyTrigger === e.key.toUpperCase());
+      console.log(foundAudio)
+      if (foundAudio) {
+        playAudio(foundAudio.desc, new Audio(foundAudio.url));
+      }
     }
   return (
     <>
